@@ -1,61 +1,74 @@
 @extends('partials.layout')
 @section('title', 'Login')
+
 @section('content')
-    <!-- Session Status -->
-    @if (session('status'))
-        <div role="alert" class="alert alert-success">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>{{ session('status') }}</span>
-        </div>
-    @endif
-    <div class="card w-96 bg-base-100 shadow-xl mx-auto">
+
+@if (session('status'))
+<div role="alert" class="alert alert-success mb-4">
+    <span>{{ session('status') }}</span>
+</div>
+@endif
+
+<div class="flex justify-center mt-10">
+    <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
+            <h2 class="card-title justify-center mb-4">Login</h2>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-
-                <!-- Email Address -->
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Email')</legend>
-                    <input type="email" name="email" class="input" value="{{ old('email') }}"
-                        placeholder="@lang('Email')" required autofocus autocomplete="username" />
-                    @error('email')
-                        <p class="label">{{ $message }}</p>
-                    @enderror
-                </fieldset>
-                <!-- Password -->
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Password')</legend>
-                    <input type="password" name="password" class="input" value="{{ old('password') }}"
-                        placeholder="@lang('Password')" required autocomplete="current-password" />
-                    @error('password')
-                        <p class="label">{{ $message }}</p>
-                    @enderror
-                </fieldset>
-
-                <!-- Remember Me -->
-
-                <fieldset class="fieldset w-64 p-4">
+                
+                <div class="form-control mb-3">
                     <label class="label">
-                        <input name="remember" type="checkbox" class="checkbox" />
-                        @lang('Remember me')
+                        <span class="label-text">@lang('Email')</span>
                     </label>
-                </fieldset>
+                    <input
+                        type="email"
+                        name="email"
+                        class="input input-bordered w-full"
+                        value="{{ old('email') }}"
+                        placeholder="@lang('Email')"
+                        required
+                        autofocus
+                        autocomplete="username">
+                    @error('email')
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="form-control mb-3">
+                    <label class="label">
+                        <span class="label-text">@lang('Password')</span>
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        class="input input-bordered w-full"
+                        placeholder="@lang('Password')"
+                        required
+                        autocomplete="current-password">
+                    @error('password')
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-control mb-3">
+                    <label class="label cursor-pointer justify-start gap-2">
+                        <input name="remember" type="checkbox" class="checkbox">
+                        <span class="label-text">@lang('Remember me')</span>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between mt-4">
                     @if (Route::has('password.request'))
-                        <a class="link" href="{{ route('password.request') }}">
-                            {{ __('Forgot your password?') }}
-                        </a>
+                    <a class="link link-hover text-sm" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
                     @endif
-
-                    <button class="btn btn-primary ms-3">
+                    <button class="btn btn-primary">
                         {{ __('Log in') }}
                     </button>
                 </div>
             </form>
         </div>
     </div>
+</div>
+
 @endsection

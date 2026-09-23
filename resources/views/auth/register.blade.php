@@ -1,59 +1,94 @@
 @extends('partials.layout')
 @section('title', 'Register')
+
 @section('content')
-    <div class="card w-96 bg-base-100 shadow-xl mx-auto">
+
+<div class="flex justify-center mt-10">
+    <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
+            <h2 class="card-title justify-center mb-4">Register</h2>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <!-- Name -->
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Name')</legend>
-                    <input type="text" name="name" class="input" value="{{ old('name') }}"
-                        placeholder="@lang('Name')" required autofocus autocomplete="name" />
+                <div class="form-control mb-3">
+                    <label class="label">
+                        <span class="label-text">@lang('Name')</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="name"
+                        class="input input-bordered w-full"
+                        value="{{ old('name') }}"
+                        placeholder="@lang('Name')"
+                        required
+                        autofocus
+                        autocomplete="name">
                     @error('name')
-                        <p class="label">{{ $message }}</p>
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
-                <!-- Email Address -->
+                </div>
 
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Email')</legend>
-                    <input type="email" name="email" class="input" value="{{ old('email') }}"
-                        placeholder="@lang('Email')" required autocomplete="username" />
+                <div class="form-control mb-3">
+                    <label class="label">
+                        <span class="label-text">@lang('Email')</span>
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="input input-bordered w-full"
+                        value="{{ old('email') }}"
+                        placeholder="@lang('Email')"
+                        required
+                        autocomplete="username">
                     @error('email')
-                        <p class="label">{{ $message }}</p>
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
-                <!-- Password -->
+                </div>
 
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Password')</legend>
-                    <input type="password" name="password" class="input" value="{{ old('password') }}"
-                        placeholder="@lang('Password')" required autocomplete="new-password" />
+                <div class="form-control mb-3">
+                    <label class="label">
+                        <span class="label-text">@lang('Password')</span>
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        class="input input-bordered w-full"
+                        placeholder="@lang('Password')"
+                        required
+                        autocomplete="new-password">
                     @error('password')
-                        <p class="label">{{ $message }}</p>
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
-                <!-- Confirm Password -->
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">@lang('Confirm Password')</legend>
-                    <input type="password" name="password_confirmation" class="input" value="{{ old('password') }}"
-                        placeholder="@lang('Confirm Password')" required autocomplete="new-password" />
-                    @error('password_confirmation')
-                        <p class="label">{{ $message }}</p>
-                    @enderror
-                </fieldset>
+                </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    <a class="link" href="{{ route('login') }}">
+                <div class="form-control mb-3">
+                    <label class="label">
+                        <span class="label-text">@lang('Confirm Password')</span>
+                    </label>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        class="input input-bordered w-full"
+                        placeholder="@lang('Confirm Password')"
+                        required
+                        autocomplete="new-password">
+                    @error('password_confirmation')
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+                <div class="flex items-center justify-between mt-4">
+                    <a class="link link-hover text-sm" href="{{ route('login') }}">
                         {{ __('Already registered?') }}
                     </a>
-                    <button class="btn btn-primary ms-3">
+                    <button class="btn btn-primary">
                         {{ __('Register') }}
                     </button>
                 </div>
             </form>
         </div>
     </div>
+</div>
+
 @endsection
