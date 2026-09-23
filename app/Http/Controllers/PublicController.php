@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
@@ -26,6 +27,19 @@ class PublicController extends Controller
     public function post(Post $post) {
         $post->loadCount('comments', 'likes')->load('comments');
         return view('post', compact('post'));
+    }
+
+    public function comment(Request $request, Post $post) {
+        $validated = $request->validate([
+            'body' => ['required', 'string', 'max:5000'],
+        ]);
+
+        $comment = new Comment();
+        $comment->body = $validated['body'];
+        $comment->user()->associate(Auth::user());
+        $post->comments()->save($comment);
+
+        return redirect()->route('post', $post);
     }
 
     public function like(Post $post) {

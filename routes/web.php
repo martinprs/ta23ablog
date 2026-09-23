@@ -19,6 +19,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/post/{post}/comment', [PublicController::class, 'comment'])->name('comment');
     Route::get('/post/{post}/like', [PublicController::class, 'like'])->name('like');
     Route::get('/user/{user}/follow', [PublicController::class, 'follow'])->name('follow');
     // Route::get('/admin/posts', [PostController::class, 'index'])->name('posts.index');
