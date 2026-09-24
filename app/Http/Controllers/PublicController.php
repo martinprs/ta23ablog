@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -61,6 +62,16 @@ class PublicController extends Controller
                         ->withCount('comments', 'likes')
                         ->latest()
                         ->simplePaginate(16);
+
+        return view('welcome', compact('posts'));
+    }
+
+    public function tag(Tag $tag) {
+        $posts = $tag->posts()
+                    ->with('user')
+                    ->withCount('comments', 'likes')
+                    ->latest()
+                    ->simplePaginate(16);
 
         return view('welcome', compact('posts'));
     }
